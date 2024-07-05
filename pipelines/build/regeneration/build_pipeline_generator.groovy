@@ -39,6 +39,9 @@ node('built-in || master') {
     Changes dir to the user's repo. Use closures as functions aren't accepted inside node blocks
     */
         def checkoutUserPipelines = { ->
+
+            echo "Current working directory: ${pwd()}"
+
             checkout([$class: 'GitSCM',
                 branches: [ [ name: repoBranch ] ],
                 userRemoteConfigs: [ remoteConfigs ]
@@ -63,6 +66,7 @@ node('built-in || master') {
                 println "[WARNING] CHECKOUT_CREDENTIALS not specified! Checkout to $repoUri may fail if you do not have your ssh key on this machine."
             }
 
+            println "CHeck if has failed:0"
             // Checkout into user repository
             checkoutUserPipelines()
 
